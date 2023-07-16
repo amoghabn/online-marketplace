@@ -16,3 +16,5 @@
 #### 10. To Use Zookeeper, kafka and Keycloak can make use of Docker compose and run `docker compose up -d`
 #### 11. login to keycloak and do the realm settings and with the help of authorization token, link postman and generate access token using the auth token from keycloak. 
 #### 12. Now We can test using GET and POST methods from postman and check the functionalities of product service, order service, notification service and inventory service.
+
+### Complete Dockerization IN PROGRESS
