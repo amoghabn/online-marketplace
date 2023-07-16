@@ -2,35 +2,36 @@
 version: '3'
 services:
   ## MySQL Docker Compose Config
-  postgres-order:
-    container_name: postgres-order
-    image: postgres
+  mysql-order:
+    container_name: mysql-order
+    image: mysql:latest
     environment:
-      POSTGRES_DB: order-service
-      POSTGRES_USER: omp
-      POSTGRES_PASSWORD: omp
-      PGDATA: /data/postgres
+      MYSQL_DATABASE: order-service
+      MYSQL_USER: omp
+      MYSQL_PASSWORD: omp
+      MYSQL_ROOT_PASSWORD: root
     volumes:
-      - ./postgres-order:/data/postgres
-    expose:
-      - "5431"
+      - ./mysql-order:/var/lib/mysql
     ports:
       - "5431:5431"
-    command: -p 5431
+    expose:
+      - "5432"
     restart: unless-stopped
 
-  postgres-inventory:
-    container_name: postgres-inventory
-    image: postgres
+  mysql-inventory:
+    container_name: mysql-inventory
+    image: mysql:latest
     environment:
-      POSTGRES_DB: inventory-service
-      POSTGRES_USER: omp
-      POSTGRES_PASSWORD: omp
-      PGDATA: /data/postgres
+      MYSQL_DATABASE: inventory-service
+      MYSQL_USER: omp
+      MYSQL_PASSWORD: omp
+      MYSQL_ROOT_PASSWORD: root
     volumes:
-      - ./postgres-inventory:/data/postgres
+      - ./mysql-inventory:/var/lib/mysql
     ports:
       - "5432:5432"
+    expose:
+      - "5432"
     restart: unless-stopped
 
   ## Mongo Docker Compose Config
@@ -48,7 +49,7 @@ services:
   ## Keycloak Config with Mysql database
   keycloak-mysql:
     container_name: keycloak-mysql
-    image: mysql:5.7
+    image: mysql:latest
     volumes:
       - ./mysql_keycloak_data:/var/lib/mysql
     environment:
@@ -101,7 +102,7 @@ services:
 
   ## Eureka Server
   discovery-server:
-    image: amoghabn/discovery-server:1.0
+    image: amoghabn/discovery-server:2.0
     container_name: discovery-server
     pull_policy: always
     ports:
@@ -110,7 +111,7 @@ services:
       - SPRING_PROFILES_ACTIVE=docker
 
   api-gateway:
-    image: amoghabn/api-gateway:1.0
+    image: amoghabn/api-gateway:2.0
     container_name: api-gateway
     pull_policy: always
     ports:
@@ -127,7 +128,7 @@ services:
   ## Product-Service Docker Compose Config
   product-service:
     container_name: product-service
-    image: amoghabn/product-service:1.0
+    image: amoghabn/product-service:2.0
     pull_policy: always
     environment:
       - SPRING_PROFILES_ACTIVE=docker
@@ -139,13 +140,13 @@ services:
   ## Order-Service Docker Compose Config
   order-service:
     container_name: order-service
-    image: amoghabn/order-service:1.0
+    image: amoghabn/order-service:2.0
     pull_policy: always
     environment:
       - SPRING_PROFILES_ACTIVE=docker
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-order:5431/order-service
+      - SPRING_DATASOURCE_URL=jdbc:mysql://localhost:5431/order-service
     depends_on:
-      - postgres-order
+      - mysql-order
       - broker
       - discovery-server
       - api-gateway
@@ -153,20 +154,20 @@ services:
   ## Inventory-Service Docker Compose Config
   inventory-service:
     container_name: inventory-service
-    image: amoghabn/inventory-service:1.0
+    image: amoghabn/inventory-service:2.0
     pull_policy: always
     environment:
       - SPRING_PROFILES_ACTIVE=docker
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-inventory:5432/inventory-service
+      - SPRING_DATASOURCE_URL=jdbc:mysql://localhost:5432/inventory-service
     depends_on:
-      - postgres-inventory
+      - mysql-inventory
       - discovery-server
       - api-gateway
 
   ## Notification-Service Docker Compose Config
   notification-service:
     container_name: notification-service
-    image: amoghabn/notification-service:1.0
+    image: amoghabn/notification-service:2.0
     pull_policy: always
     environment:
       - SPRING_PROFILES_ACTIVE=docker
