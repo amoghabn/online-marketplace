@@ -20,5 +20,3 @@ thub.com/amoghabn/online-marketplace/assets/112653296/4514a76b-8239-488c-a649-e1
 
 ### Complete Dockerization IN PROGRESS
 
-![Uploading Screenshot 2023-07-14 at 6.29.52 PM.png…]()
-
