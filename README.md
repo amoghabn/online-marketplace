@@ -1,7 +1,8 @@
 # ONLINE-MARKETPLACE
 ### Online Marketplace backend API built using Spring Boot, Spring Security, Spring Data JPA with MySQL, MongoDB, Event Driven Architecture with Kafka, Resiliency of Synchronous communication using Resilience 4j, and SCM using Git. 
 
-<img width="807" alt="Screenshot 2023-07-14 at 6 29 52 PM" src="https://github.com/amoghabn/online-marketplace/assets/112653296/4514a76b-8239-488c-a649-e1eea7965194">
+<img width="807" alt="Screenshot 2023-07-14 at 6 29 52 PM" src="https://gi![Uploading Screenshot 2023-07-14 at 6.29.52 PM.png…]()
+thub.com/amoghabn/online-marketplace/assets/112653296/4514a76b-8239-488c-a649-e1eea7965194">
 
 # Steps to run in Local machine
 #### 1. Setup MySQL DB (To be utilized by Order Service and Inventory Service)
@@ -18,3 +19,6 @@
 #### 12. Now We can test using GET and POST methods from postman and check the functionalities of product service, order service, notification service and inventory service.
 
 ### Complete Dockerization IN PROGRESS
+
+![Uploading Screenshot 2023-07-14 at 6.29.52 PM.png…]()
+
